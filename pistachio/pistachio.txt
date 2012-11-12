@@ -1,0 +1,7 @@
+"pistachio"
+{
+	"base"		"sandbox"
+	"title"		"Pistachio"
+	"author"	"Chessnut"
+	"menusystem"	"1"
+}
