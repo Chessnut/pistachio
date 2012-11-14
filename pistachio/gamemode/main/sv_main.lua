@@ -264,21 +264,17 @@ function GM:PlayerLoadout(client)
 			client:SetWalkSpeed( math.Clamp(125 - weight, 50, 125) );
 			client:SetRunSpeed( math.Clamp(250 - weight, 75, 250) );
 
-			if (client:Team() == TEAM_CITIZEN) then
-				local colorString = client:GetPrivateVar("color");
+			local colorString = client:GetPrivateVar("color");
 
-				if (colorString) then
-					local explodedString = string.Explode(",", colorString);
-					local r, g, b = explodedString[1], explodedString[2], explodedString[3];
+			if (colorString) then
+				local explodedString = string.Explode(",", colorString);
+				local r, g, b = explodedString[1], explodedString[2], explodedString[3];
 
-					if (r and g and b) then
-						local red, green, blue = tonumber(r), tonumber(g), tonumber(b);
+				if (r and g and b) then
+					local red, green, blue = tonumber(r), tonumber(g), tonumber(b);
 
-						if (red and green and blue) then
-							client:SetPlayerColor( Vector(red / 255, green / 255, blue / 255) );
-						end;
-					else
-						client:SetPlayerColor( Vector(1, 1, 1) );
+					if (red and green and blue) then
+						client:SetPlayerColor( Vector(red / 255, green / 255, blue / 255) );
 					end;
 				else
 					client:SetPlayerColor( Vector(1, 1, 1) );
