@@ -20,7 +20,7 @@ function MODULE:SaveMailBoxes()
 		end;
 	end;
 
-	pistachio.persist:PersistData("mailbox", data, false, true);
+	pistachio.persist:PersistData("mailbox", data, false);
 end;
 
 function MODULE:CreateMailBox(position, angle)

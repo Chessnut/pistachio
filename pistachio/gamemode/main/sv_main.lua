@@ -89,11 +89,11 @@ function GM:PlayerSay(client, message, public)
 				net.WriteString(message);
 			net.Broadcast();
 
+			if (class.Callback) then
+				class.Callback(client, message);
+			end;
+		
 			MsgN(client:Name()..": "..message);
-		end;
-
-		if (class.Callback) then
-			class.Callback(client, message);
 		end;
 
 		return "";

@@ -12,7 +12,7 @@ local enableTicker = CreateClientConVar("ps_enableticker", "1", true, false);
 local textX;
 local currentMessage = 1;
 local messages = {
-    "Visit the official website at www.thecubeserver.com!",
+    "Visit the official website at <website>!",
     "Invite your friends and have a good time!",
     "Remember that administrators are here to help you.",
     "Please respect other players and treat them as you'd treat yourself.",

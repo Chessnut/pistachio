@@ -41,6 +41,12 @@ function PANEL:Init()
 		label:SetText(k..".) "..v);
 		label:SetDisabled(false);
 		label.Think = function(self)
+			if (pistachio.laws[k] == "") then
+				self:SetText("");
+
+				return;
+			end;
+
 			if ( self:GetText() != pistachio.laws[k] ) then
 				self:SetText( k..".) "..pistachio.laws[k] );
 			end;

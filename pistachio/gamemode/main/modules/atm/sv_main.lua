@@ -20,7 +20,7 @@ function MODULE:SaveATM()
 		end;
 	end;
 
-	pistachio.persist:PersistData("atm", data, false, true);
+	pistachio.persist:PersistData("atm", data, false);
 end;
 
 function MODULE:CreateATM(position, angle)

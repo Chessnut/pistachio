@@ -24,6 +24,28 @@ pistachio.command:Create("job", "<job>", "Specifies a job you want to be.", func
 	client:Notify("You've set your job to: "..data..".");
 end);
 
+pistachio.command:Create("setname", "<name>", "Specifies a name you want to be.", function(client, arguments)
+	local data = table.concat(arguments, " ");
+
+	if ( (client.nextNameChange or 0) < CurTime() ) then
+		if (!data or string.len(data) < 1) then
+			client:Notify("You must enter a valid name!");
+
+			return;
+		end;
+
+		if (string.len(data) > 32) then
+			data = string.sub(data, 1, 32);
+		end;
+
+		client:SetPublicVar("name", data);
+		client:Notify("You've set your name to: "..data..".");
+		client.nextNameChange = CurTime() + 30;
+	else
+		client:Notify("You cannot change your name yet!");
+	end;
+end);
+
 pistachio.command:Create("title", "<title>", "Specifies a physics title about you.", function(client, arguments)
 	local data = table.concat(arguments, " ");
 

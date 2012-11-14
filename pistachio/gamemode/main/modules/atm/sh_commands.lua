@@ -12,9 +12,34 @@ pistachio.command:Create("createatm", nil, "Creates an ATM machine at where you 
 		local isValid = MODULE:CreateATM(position, angle);
 
 		if (isValid) then
-			client:Notify("You have added a mailbox.");
+			client:Notify("You have added an ATM machine.");
 		end;
 	end;
 
 	MODULE:SaveATM();
+end, false, "admin");
+
+pistachio.command:Create("removeatm", nil, "Removes an ATM machine at where you aim.", function(client, arguments)
+	local trace = client:GetEyeTraceNoCursor();
+	local entity = trace.Entity;
+
+	if (IsValid(entity) and entity:GetClass() == "pistachio_atm") then
+		local amount = 0;
+
+		for k, v in pairs(MODULE.atm) do
+			if (v:GetPos():Distance( entity:GetPos() ) <= 5) then
+				amount = amount + 1;
+
+				v:Remove();
+
+				MODULE.atm[k] = nil;
+			end;
+		end;
+
+		client:Notify("You have removed "..amount.." ATM machine(s).");
+
+		MODULE:SaveATM();
+	else
+		client:Notify("That is not a valid entity!");
+	end;
 end, false, "admin");

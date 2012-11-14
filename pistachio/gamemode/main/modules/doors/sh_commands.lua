@@ -55,3 +55,26 @@ pistachio.command:Create("doorsetteam", "<title> <team>", "Sets a door to belong
 		client:Notify("That isn't a valid entity!");
 	end;
 end, false, "admin");
+
+pistachio.command:Create("doorremove", nil, "Removes data for the door you're aiming at.", function(client, arguments)
+	local trace = client:GetEyeTraceNoCursor();
+	local entity = trace.Entity;
+
+	if ( IsValid(entity) ) then
+		for k, v in pairs(MODULE.teamDoors) do
+			if (v == entity) then
+				MODULE.teamDoors[k] = nil;
+			end;
+		end;
+
+		entity:SetPublicVar("title", nil);
+		entity:SetPublicVar("unownable", nil);
+		entity:SetPublicVar("team", nil);
+		
+		MODULE:SaveTeamDoors();
+
+		client:Notify("You have removed data for this door.");
+	else
+		client:Notify("That isn't a valid entity!");
+	end;
+end, false, "admin");

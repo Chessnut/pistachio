@@ -124,8 +124,16 @@ else
 	end;
 end;
 
-function playerMeta:IsDeveloper()
+function playerMeta:IsDeveloper() -- This is just so I get a wrench icon in the scoreboard. No worries. -Chessnut
 	return self:SteamID() == "STEAM_0:1:1486564";
+end;
+
+if (!playerMeta.oldName) then
+	playerMeta.oldName = playerMeta.Name;
+
+	function playerMeta:Name()
+		return self:GetPublicVar("name") or self.oldName(self);
+	end;
 end;
 
 function playerMeta:IsArrested()

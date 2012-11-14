@@ -45,17 +45,11 @@ end;
 pistachio.persist = pistachio.persist or {};
 pistachio.persist.stored = pistachio.persist.stored or {};
 
-function pistachio.persist:PersistData(key, value, notMapOnly, merge)
+function pistachio.persist:PersistData(key, value, notMapOnly, merge) -- Merge is now redundant.
 	self.stored[key] = self.stored[key] or {};
 
 	if (value and type(value) == "table") then
-		if (!merge) then
-			self.stored[key] = value;
-		else
-			for k, v in pairs(value) do
-				table.insert(self.stored[key], v);
-			end;
-		end;
+		self.stored[key] = value;
 	end;
 
 	local pistachioFile, pistachioFolder = file.Find("pistachio", "DATA");
