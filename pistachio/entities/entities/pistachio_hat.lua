@@ -28,7 +28,7 @@ function ENT:Think()
 			local boneIndex = client:LookupBone("ValveBiped.Bip01_Head1");
 			local info = pistachio.item:Get( self:GetUniqueID() );
 
-			if (info and boneIndex != -1) then
+			if (info and boneIndex and boneIndex != -1) then
 				local position, angle = client:GetBonePosition(boneIndex);
 
 				self:SetPos( position + angle:Right() * (info.offset[1] or 0) + angle:Forward() * (info.offset[2] or 0) + angle:Up() * (info.offset[3] or 0) );
