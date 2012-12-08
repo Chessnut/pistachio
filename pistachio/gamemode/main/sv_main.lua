@@ -120,6 +120,12 @@ function GM:PlayerLoadData(client)
 			net.WriteString(v);
 		net.Send(client);
 	end;
+
+	local files = file.Find("*", "cstrike");
+
+	if (#files == 0) then
+		client:ChatPrint("Server is missing Counter-Strike content!");
+	end;
 end;
 
 function GM:PlayerSaveData(client, final, stopMessage)
@@ -228,8 +234,6 @@ function GM:PlayerLoadout(client)
 					break;
 				end;
 			end;
-
-			print(correctModel)
 
 			if (correctModel) then
 				client:SetModel( client:GetPrivateVar("model") or table.Random( pistachio.playerModels[ client:Team() ] ) );
