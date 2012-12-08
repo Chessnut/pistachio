@@ -1,4 +1,3 @@
-
 if (SERVER) then
 
 	AddCSLuaFile( "shared.lua" )
@@ -68,7 +67,7 @@ SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
 function SWEP:SetupDataTables()
-	self:NetworkVar("Bool", false, "Ironsights");
+	self:NetworkVar("Bool", 0, "Ironsights");
 end;
 
 /*---------------------------------------------------------
