@@ -770,8 +770,12 @@ function GM:Think()
 		nextTip = CurTime() + 10;
 	end;
 
-	if (pistachio.lostFocus and RealTime() - pistachio.lostFocusTime >= 300) then
-		RunConsoleCommand("melonsauce");
+	local shouldKick = cvars.Bool("ps_kickafk", true);
+
+	if (shouldKick) then
+		if (pistachio.lostFocus and RealTime() - pistachio.lostFocusTime >= 300) then
+			RunConsoleCommand("melonsauce");
+		end;
 	end;
 end;
 

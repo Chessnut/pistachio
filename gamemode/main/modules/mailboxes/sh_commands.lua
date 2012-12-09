@@ -6,7 +6,7 @@ pistachio.command:Create("createmailbox", nil, "Creates a mailbox at where you a
 	local angle = Angle(0, client:EyeAngles().y, 0);
 
 	angle.y = angle.y + 270;
-	angle.y = math.floor(angle.y / 94) * 90;
+	angle.y = math.floor(angle.y / 94) * 45;
 
 	if (position) then
 		local isValid = MODULE:CreateMailBox(position, angle);

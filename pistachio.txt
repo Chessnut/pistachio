@@ -4,4 +4,64 @@
 	"title"		"Pistachio"
 	"author"	"Chessnut"
 	"menusystem"	"1"
+
+	"settings"
+	{
+		1
+		{
+			"name"		"ps_defaultmoney"
+			"text"		"defaultmoney"
+			"help"		"Determines the amount of money given on default"
+			"type"		"Numberic"
+			"default"	"50"
+		}
+		2
+		{
+			"name"		"ps_kickafk"
+			"text"		"kickafk"
+			"help"		"When enabled will kick players who go AFK"
+			"type"		"CheckBox"
+			"default"	"1"
+		}
+		3
+		{
+			"name"		"ps_givephysgun"
+			"text"		"givephysgun"
+			"help"		"When enabled will give players a physgun"
+			"type"		"CheckBox"
+			"default"	"1"
+		}
+		4
+		{
+			"name"		"ps_givetool"
+			"text"		"givetool"
+			"help"		"When enabled will give players a toolgun"
+			"type"		"CheckBox"
+			"default"	"1"
+		}
+		5
+		{
+			"name"		"ps_enablevoiceradius"
+			"text"		"enablevoiceradius"
+			"help"		"When enabled will enable voice radius"
+			"type"		"CheckBox"
+			"default"	"1"
+		}
+		6
+		{
+			"name"		"ps_deathtax"
+			"text"		"deathtax"
+			"help"		"When enabled will determine the percentage of money dropped on death"
+			"type"		"Numberic"
+			"default"	"1"
+		}
+		7
+		{
+			"name"		"ps_carspawndelay"
+			"text"		"carspawndelay"
+			"help"		"The amount of time to spawn another vehicle in seconds"
+			"type"		"Numberic"
+			"default"	"1"
+		}
+	}
 }

@@ -248,8 +248,18 @@ function GM:PlayerLoadout(client)
 
 			client:Give("pistachio_hands");
 			client:Give("weapon_physcannon");
-			client:Give("weapon_physgun");
-			client:Give("gmod_tool");
+
+			local givePhysgun = cvars.Bool("ps_givephysgun", true);
+			local giveToolgun = cvars.Bool("ps_givetool", true);
+
+			if (givePhysgun) then
+				client:Give("weapon_physgun");
+			end;
+
+			if (giveToolgun) then
+				client:Give("gmod_tool");
+			end;
+
 			client:SetWalkSpeed(125);
 			client:SetRunSpeed(250);
 
@@ -966,9 +976,9 @@ function GM:PlayerDeath(client, weapon, killer)
 		client:EmitSound("vo/npc/male01/pain0"..math.random(1, 9)..".wav");
 	end;
 
-	local percentage = 0.2;
+	local percentage = cvars.Number("ps_deathtax", 0.2);
 
-	if ( client:HasItem("insurance") ) then
+	if (client:HasItem("insurance") and percentage != 0) then
 		percentage = 0.05;
 	end;
 
@@ -1079,7 +1089,9 @@ function GM:PlayerOrderItem(client, itemTable)
 end;
 
 function GM:PlayerCanHearPlayersVoice(speaker, listener)
-	return true, true;
+	local enabled = cvars.Bool("ps_enablevoiceradius", true);
+
+	return true, enabled;
 end;
 
 function pistachio:CreateItemVehicle(client, itemTable)
@@ -1170,8 +1182,10 @@ function pistachio:CreateItemVehicle(client, itemTable)
 			end;
 		end;
 
+		local vehicleDelay = cvars.Number("ps_carspawndelay", 600);
+
 		client.vehicle = entity;
-		client.vehicleTime = CurTime() + 600;
+		client.vehicleTime = CurTime() + vehicleDelay;
 
 		return "You've spawned a vehicle.";
 	else
@@ -1282,9 +1296,11 @@ net.Receive("ps_PlayerGetData", function(length, client)
 
 		timer.Simple(client:Ping() / 100, function()
 			if ( IsValid(client) ) then
+				local defaultMoney = cvars.Number("ps_defaultmoney", 50);
+
 				client:SetTeam(TEAM_CITIZEN);
 				client:SetPublicVar("job", "Unemployed");
-				client:SetPrivateVar("money", 50);
+				client:SetPrivateVar("money", defaultMoney);
 				client:SetPrivateVar("stamina", 100);
 
 				hook.Call("PlayerLoadData", GAMEMODE, client);
@@ -1420,7 +1436,9 @@ net.Receive("ps_SelectShirtColor", function(length, client)
 end);
 
 concommand.Add("melonsauce", function(p, c, a)
-	if ( IsValid(p) ) then
+	local shouldKick = cvars.Bool("ps_kickafk", true);
+
+	if (IsValid(p) and shouldKick) then
 		p:Kick("Away from keyboard");
 	end;
 end);
