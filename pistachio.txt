@@ -63,5 +63,29 @@
 			"type"		"Numberic"
 			"default"	"1"
 		}
+		8
+		{
+			"name"		"ps_allowsuicide"
+			"text"		"allowsuicide"
+			"help"		"When enabled will allow players to suicide"
+			"type"		"CheckBox"
+			"default"	"0"
+		}
+		9
+		{
+			"name"		"ps_walkspeed"
+			"text"		"walkspeed"
+			"help"		"The speed of walking"
+			"type"		"Numberic"
+			"default"	"125"
+		}
+		10
+		{
+			"name"		"ps_runspeed"
+			"text"		"runspeed"
+			"help"		"The speed of running"
+			"type"		"Numberic"
+			"default"	"250"
+		}
 	}
 }
