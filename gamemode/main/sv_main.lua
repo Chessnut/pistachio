@@ -49,7 +49,7 @@ function GM:EntityRemoved(entity)
 	if ( IsValid(entity) and string.find(entity:GetClass(), "prop_*") and !entity:IsDoor() ) then
 		local owner = entity:GetAccessOwner();
 
-		if (IsValid(owner) and entity.spawnCost) then
+		if (IsValid(owner) and entity.spawnCost and entity.spawnCost > 0) then
 			local money = math.ceil(entity.spawnCost / 2);
 
 			owner:AddMoney(money);
@@ -64,7 +64,7 @@ function GM:CanExitVehicle(vehicle, client)
 end;
 
 function GM:CanPlayerSuicide(client)
-	return false;
+	return cvars.Bool("ps_allowsuicide", false);
 end;
 
 function GM:PlayerSay(client, message, public)
@@ -260,8 +260,11 @@ function GM:PlayerLoadout(client)
 				client:Give("gmod_tool");
 			end;
 
-			client:SetWalkSpeed(125);
-			client:SetRunSpeed(250);
+			local walkSpeed = cvars.Int("ps_walkspeed", 125);
+			local runSpeed = cvars.Int("ps_runspeed", 250);
+
+			client:SetWalkSpeed(walkSpeed);
+			client:SetRunSpeed(runSpeed);
 
 			local hat = client:GetPrivateVar("hat") or "";
 
@@ -275,8 +278,8 @@ function GM:PlayerLoadout(client)
 
 			local weight = client:GetItemWeight() * 2;
 
-			client:SetWalkSpeed( math.Clamp(125 - weight, 50, 125) );
-			client:SetRunSpeed( math.Clamp(250 - weight, 75, 250) );
+			client:SetWalkSpeed( math.Clamp(walkSpeed - weight, 50, walkSpeed) );
+			client:SetRunSpeed( math.Clamp(runSpeed - weight, 75, runSpeed) );
 
 			local colorString = client:GetPrivateVar("color");
 
