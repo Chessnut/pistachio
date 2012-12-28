@@ -185,7 +185,7 @@ pistachio.command:Create("demote", "<person> <reason>", "Demote a person from an
 	end;
 end);
 
-pistachio.command:Create("write", "<text>", "Writes a note onto a peice of paper.", function(client, arguments)
+pistachio.command:Create("write", "<text>", "Writes a note onto a piece of paper.", function(client, arguments)
 	local text = table.concat(arguments, " ");
 
 	if ( !client:HasItem("paper") ) then
