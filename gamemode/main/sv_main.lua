@@ -260,8 +260,8 @@ function GM:PlayerLoadout(client)
 				client:Give("gmod_tool");
 			end;
 
-			local walkSpeed = cvars.Int("ps_walkspeed", 125);
-			local runSpeed = cvars.Int("ps_runspeed", 250);
+			local walkSpeed = cvars.Number("ps_walkspeed", 125);
+			local runSpeed = cvars.Number("ps_runspeed", 250);
 
 			client:SetWalkSpeed(walkSpeed);
 			client:SetRunSpeed(runSpeed);
@@ -457,9 +457,11 @@ function GM:StaminaTick(client)
 			client:SetRunSpeed(walkSpeed);
 		else
 			local weight = client:GetItemWeight() * 2;
+			local walkSpeed = cvars.Number("ps_walkspeed", 125);
+			local runSpeed = cvars.Number("ps_runspeed", 250);
 
-			client:SetWalkSpeed( math.Clamp(125 - weight, 50, 125) );
-			client:SetRunSpeed( math.Clamp(250 - weight, 75, 250) );
+			client:SetWalkSpeed( math.Clamp(walkSpeed - weight, 50, walkSpeed) );
+			client:SetRunSpeed( math.Clamp(runSpeed - weight, 75, runSpeed) );
 		end;
 	end;
 end;
