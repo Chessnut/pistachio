@@ -5,9 +5,11 @@ ENT.PrintName = "Crate";
 ENT.Author = "Chessnut";
 ENT.Spawnable = false;
 
+util.PrecacheModel("models/items/item_item_crate.mdl");
+
 function ENT:Initialize()
 	if (SERVER) then
-		self:SetModel("models/Items/item_item_crate.mdl");
+		self:SetModel("models/items/item_item_crate.mdl");
 		self:SetSolid(SOLID_VPHYSICS);
 		self:SetMoveType(MOVETYPE_VPHYSICS);
 		self:PhysicsInit(SOLID_VPHYSICS);

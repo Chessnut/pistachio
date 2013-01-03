@@ -9,9 +9,11 @@ function ENT:SetupDataTables()
 	self:NetworkVar("Int", 0, "Money");
 end;
 
+util.PrecacheModel("models/props/cs_assault/money.mdl");
+
 function ENT:Initialize()
 	if (SERVER) then
-		self:SetModel("models/props/cs_assault/Money.mdl");
+		self:SetModel("models/props/cs_assault/money.mdl");
 		self:SetSolid(SOLID_VPHYSICS);
 		self:SetMoveType(MOVETYPE_VPHYSICS);
 		self:PhysicsInit(SOLID_VPHYSICS);

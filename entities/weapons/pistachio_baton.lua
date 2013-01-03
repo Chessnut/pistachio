@@ -13,11 +13,15 @@ SWEP.Purpose = "Protect the society.";
 SWEP.Instructions = "Primary Fire: Strike.\nPrimary + Sprint: Arrest.\nSecondary Fire: Push/Breach.\nSecondary + Sprint: Unarrest";
 SWEP.Spawnable = false;
 SWEP.AdminSpawnable = true;
-SWEP.ViewModel = "models/weapons/v_stunstick.mdl";
-SWEP.WorldModel = "models/weapons/w_stunbaton.mdl";
+SWEP.ViewModel = Model("models/weapons/v_stunstick.mdl");
+SWEP.WorldModel = Model("models/weapons/w_stunbaton.mdl");
 SWEP.Weight = 2;
 SWEP.AutoSwitchTo = false;
 SWEP.AutoSwitchFrom = false;
+
+util.PrecacheSound("weapons/crossbow/hitbod2.wav");
+util.PrecacheSound("npc/vort/claw_swing2.wav");
+util.PrecacheSound("physics/wood/wood_panel_impact_hard1.wav");
 
 function SWEP:Initialize()
 	self:SetWeaponHoldType("melee");
@@ -93,7 +97,7 @@ function SWEP:PrimaryAttack()
 				self:EmitSound("weapons/crossbow/hitbod2.wav");
 			end;
 		elseif (trace.HitWorld and distance <= 72) then
-			self.owner:EmitSound("weapons/crossbow/hitbod2.wav");
+			self.Owner:EmitSound("weapons/crossbow/hitbod2.wav");
 		end;
 
 		self.Owner:EmitSound("npc/vort/claw_swing2.wav");

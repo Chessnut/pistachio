@@ -7,7 +7,7 @@ ENT.Author = "Chessnut";
 ENT.Spawnable = false;
 
 function ENT:Initialize()
-	if ( SERVER ) then
+	if (SERVER) then
 		self:SetModel("models/Combine_Scanner.mdl");
 	end;
 end;

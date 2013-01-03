@@ -96,58 +96,58 @@ pistachio.playerModels = {};
 
 pistachio.playerModels[TEAM_CITIZEN] = {
 	-- Other.
-	"models/player/Kleiner.mdl",
-	"models/player/alyx.mdl",
-	"models/player/gman_high.mdl",
+	Model("models/player/Kleiner.mdl"),
+	Model("models/player/alyx.mdl"),
+	Model("models/player/gman_high.mdl"),
 
-	-- Female models.
-	"models/player/Group01/Female_01.mdl",
-	"models/player/Group01/Female_02.mdl",
-	"models/player/Group01/Female_03.mdl",
-	"models/player/Group01/Female_04.mdl",
-	"models/player/Group01/Female_06.mdl",
-	"models/player/Group01/Female_07.mdl",
-	"models/player/Group03/Female_01.mdl",
-	"models/player/Group03/Female_02.mdl",
-	"models/player/Group03/Female_03.mdl",
-	"models/player/Group03/Female_04.mdl",
-	"models/player/Group03/Female_06.mdl",
-	"models/player/Group03/Female_07.mdl",
+	Model(-- Female models.
+	Model("models/player/Group01/Female_01.mdl"),
+	Model("models/player/Group01/Female_02.mdl"),
+	Model("models/player/Group01/Female_03.mdl"),
+	Model("models/player/Group01/Female_04.mdl"),
+	Model("models/player/Group01/Female_06.mdl"),
+	Model("models/player/Group01/Female_07.mdl"),
+	Model("models/player/Group03/Female_01.mdl"),
+	Model("models/player/Group03/Female_02.mdl"),
+	Model("models/player/Group03/Female_03.mdl"),
+	Model("models/player/Group03/Female_04.mdl"),
+	Model("models/player/Group03/Female_06.mdl"),
+	Model("models/player/Group03/Female_07.mdl"),
 
-	-- Male models.
-	"models/player/Group01/male_09.mdl",
-	"models/player/Group01/male_08.mdl",
-	"models/player/Group01/male_07.mdl",
-	"models/player/Group01/male_06.mdl",
-	"models/player/Group01/male_05.mdl",
-	"models/player/Group01/male_04.mdl",
-	"models/player/Group01/male_03.mdl",
-	"models/player/Group01/male_02.mdl",
-	"models/player/Group01/male_01.mdl",
-	"models/player/Group03/male_02.mdl",
-	"models/player/Group03/male_03.mdl",
-	"models/player/Group03/male_04.mdl",
-	"models/player/Group03/male_05.mdl",
-	"models/player/Group03/male_06.mdl",
-	"models/player/Group03/male_07.mdl",
-	"models/player/Group03/male_08.mdl"
+	Model(-- Male models.
+	Model("models/player/Group01/male_09.mdl"),
+	Model("models/player/Group01/male_08.mdl"),
+	Model("models/player/Group01/male_07.mdl"),
+	Model("models/player/Group01/male_06.mdl"),
+	Model("models/player/Group01/male_05.mdl"),
+	Model("models/player/Group01/male_04.mdl"),
+	Model("models/player/Group01/male_03.mdl"),
+	Model("models/player/Group01/male_02.mdl"),
+	Model("models/player/Group01/male_01.mdl"),
+	Model("models/player/Group03/male_02.mdl"),
+	Model("models/player/Group03/male_03.mdl"),
+	Model("models/player/Group03/male_04.mdl"),
+	Model("models/player/Group03/male_05.mdl"),
+	Model("models/player/Group03/male_06.mdl"),
+	Model("models/player/Group03/male_07.mdl"),
+	Model("models/player/Group03/male_08.mdl")
 };
 
 pistachio.playerModels[TEAM_POLICE] = {
-	"models/player/riot.mdl",
-	"models/player/swat.mdl",
-	"models/player/urban.mdl",
-	"models/player/gasmask.mdl"
+	Model("models/player/riot.mdl"),
+	Model("models/player/swat.mdl"),
+	Model("models/player/urban.mdl"),
+	Model("models/player/gasmask.mdl")
 	--[[
-	"models/player/police.mdl",
-	"models/player/combine_soldier.mdl",
-	"models/player/combine_soldier_prisonguard.mdl"
+	Model("models/player/police.mdl"),
+	Model("models/player/combine_soldier.mdl"),
+	Model("models/player/combine_soldier_prisonguard.mdl")
 	--]]
 };
 
 pistachio.playerModels[TEAM_MAYOR] = {
-	"models/player/breen.mdl",
-	"models/player/mossman.mdl"
+	Model("models/player/breen.mdl"),
+	Model("models/player/mossman.mdl")
 }
 
 pistachio.itemColors = {};

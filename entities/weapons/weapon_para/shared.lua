@@ -24,8 +24,8 @@ SWEP.HoldType			= "ar2"
 SWEP.Base				= "weapon_cs_base"
 SWEP.Category			= "Counter-Strike"
 
-SWEP.ViewModel			= "models/weapons/v_mach_m249para.mdl"
-SWEP.WorldModel			= "models/weapons/w_mach_m249para.mdl"
+SWEP.ViewModel			= Model("models/weapons/v_mach_m249para.mdl")
+SWEP.WorldModel			= Model("models/weapons/w_mach_m249para.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false

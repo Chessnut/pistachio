@@ -22,8 +22,8 @@ SWEP.HoldType			= "ar2"
 SWEP.Base				= "weapon_cs_base"
 SWEP.Category			= "Counter-Strike"
 
-SWEP.ViewModel			= "models/weapons/v_rif_m4a1.mdl"
-SWEP.WorldModel			= "models/weapons/w_rif_m4a1.mdl"
+SWEP.ViewModel			= Model("models/weapons/v_rif_m4a1.mdl")
+SWEP.WorldModel			= Model("models/weapons/w_rif_m4a1.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false

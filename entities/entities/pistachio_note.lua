@@ -5,6 +5,8 @@ ENT.PrintName = "Note";
 ENT.Author = "Chessnut";
 ENT.Spawnable = false;
 
+util.PrecacheModel("models/props_c17/paper01.mdl");
+
 function ENT:Initialize()
 	if (SERVER) then
 		self:SetModel("models/props_c17/paper01.mdl");

@@ -5,6 +5,8 @@ ENT.PrintName = "Mailbox";
 ENT.Author = "Chessnut";
 ENT.Spawnable = false;
 
+util.PrecacheModel("models/props/cs_militia/mailbox01.mdl");
+
 function ENT:Initialize()
 	if (SERVER) then
 		self:SetModel("models/props/cs_militia/mailbox01.mdl");

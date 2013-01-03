@@ -22,8 +22,8 @@ SWEP.HoldType			= "pistol"
 SWEP.Base				= "weapon_cs_base"
 SWEP.Category			= "Counter-Strike"
 
-SWEP.ViewModel			= "models/weapons/v_pist_fiveseven.mdl"
-SWEP.WorldModel			= "models/weapons/w_pist_fiveseven.mdl"
+SWEP.ViewModel			= Model("models/weapons/v_pist_fiveseven.mdl")
+SWEP.WorldModel			= Model("models/weapons/w_pist_fiveseven.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false

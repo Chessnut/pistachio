@@ -22,8 +22,8 @@ SWEP.HoldType			= "pistol"
 SWEP.Base				= "weapon_cs_base"
 SWEP.Category			= "Counter-Strike"
 
-SWEP.ViewModel			= "models/weapons/v_pist_glock18.mdl"
-SWEP.WorldModel			= "models/weapons/w_pist_glock18.mdl"
+SWEP.ViewModel			= Model("models/weapons/v_pist_glock18.mdl")
+SWEP.WorldModel			= Model("models/weapons/w_pist_glock18.mdl")
 
 SWEP.Weight				= 5
 SWEP.AutoSwitchTo		= false

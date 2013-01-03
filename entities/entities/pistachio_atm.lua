@@ -5,6 +5,8 @@ ENT.PrintName = "ATM";
 ENT.Author = "Chessnut";
 ENT.Spawnable = false;
 
+util.PrecacheModel("models/props/de_nuke/equipment1.mdl");
+
 function ENT:Initialize()
 	if (SERVER) then
 		self:SetModel("models/props/de_nuke/equipment1.mdl");

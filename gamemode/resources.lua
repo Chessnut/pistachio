@@ -62,10 +62,10 @@ for k, v in pairs( file.Find("sound/vehicles/truck/*", "GAME") ) do
 	resource.AddFile("sound/vehicles/v8/"..v);
 end;
 
-resource.AddFile("sound/vehicles/vu_horn_double.wav");
-resource.AddFile("sound/vehicles/vu_horn_old.wav");
-resource.AddFile("sound/vehicles/vu_horn_quick.wav");
-resource.AddFile("sound/vehicles/vu_horn_simple.wav");
+resource.AddFile( Model("sound/vehicles/vu_horn_double.wav") );
+resource.AddFile( Model("sound/vehicles/vu_horn_old.wav") );
+resource.AddFile( Model("sound/vehicles/vu_horn_quick.wav") );
+resource.AddFile( Model("sound/vehicles/vu_horn_simple.wav") );
 
 resource.AddFile("materials/pistachio/skin3.png");
 
