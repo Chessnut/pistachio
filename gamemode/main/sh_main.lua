@@ -100,7 +100,7 @@ pistachio.playerModels[TEAM_CITIZEN] = {
 	Model("models/player/alyx.mdl"),
 	Model("models/player/gman_high.mdl"),
 
-	Model(-- Female models.
+	-- Female models.
 	Model("models/player/Group01/Female_01.mdl"),
 	Model("models/player/Group01/Female_02.mdl"),
 	Model("models/player/Group01/Female_03.mdl"),
@@ -114,7 +114,7 @@ pistachio.playerModels[TEAM_CITIZEN] = {
 	Model("models/player/Group03/Female_06.mdl"),
 	Model("models/player/Group03/Female_07.mdl"),
 
-	Model(-- Male models.
+	-- Male models.
 	Model("models/player/Group01/male_09.mdl"),
 	Model("models/player/Group01/male_08.mdl"),
 	Model("models/player/Group01/male_07.mdl"),
