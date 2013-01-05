@@ -215,6 +215,22 @@ end, function()
 	return "icon16/bell.png"
 end);
 
+pistachio.chatBox:AddClass("event", {"/event"}, function(client)
+	return true;
+end, function(client, text)
+	return {Color(199, 195, 187), "[Event] "..text};
+end, function(client)
+	if ( client:IsAdmin() ) then
+		return true;
+	else
+		client:Notify("You must be an administrator to do an event.");
+
+		return false;
+	end;
+end, function()
+	return "icon16/calendar.png"
+end);
+
 pistachio.chatBox:AddClass("advert", {"/advertise"}, function(client)
 	return true;
 end, function(client, text)
