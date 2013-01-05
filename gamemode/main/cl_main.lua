@@ -7,6 +7,8 @@ timer.Destroy("HintSystem_Annoy1");
 PS_CVAR_HEADBOB = CreateClientConVar("ps_headbobscale", "0", true, false);
 PS_CVAR_OOC = CreateClientConVar("ps_showooc", "1", true, false);
 PS_CVAR_SHOWVOTE = CreateClientConVar("ps_showmyvote", "1", true, true);
+PS_CVAR_OUTLINE = CreateClientConVar("ps_hudoutline", "1", true, false);
+PS_CVAR_WRAP = CreateClientConVar("ps_hudwrap", "0.25", true, false);
 
 pistachio.lostFocus = pistachio.lostFocus or false;
 pistachio.lostFocusTime = pistachio.lostFocusTime or 0;
@@ -120,33 +122,32 @@ function GM:DrawUpperInfo(x, y, icon, text, shouldDrawCallback, alpha)
 		surface.SetFont("ps_HUDFont");
 
 		local width, height = surface.GetTextSize(text or "");
-
-		if (width + 12 + x + 32 > ScrW() * 0.3) then
-			x = 8;
-			y = y + 30;
-		end;
+		local maxWidth = ScrW() * PS_CVAR_WRAP:GetFloat();
 
 		draw.RoundedBox( 4, x, y, 26, 26, Color(0, 0, 0, alpha * 0.78) );
+		draw.RoundedBox( 4, x + 26 + 4, y, width + 12, 26, Color(0, 0, 0, alpha * 0.78) );
 
-		surface.SetDrawColor(250, 250, 250, 8);
-		surface.DrawRect(x + 3, y + 3, 20, 20);
+		if (PS_CVAR_OUTLINE:GetInt() > 0) then
+			surface.SetDrawColor(250, 250, 250, alpha * 0.031);
+			surface.DrawRect(x + 33, y + 3, width + 6, 20);
+
+			surface.SetDrawColor(250, 250, 250, 8);
+			surface.DrawRect(x + 3, y + 3, 20, 20);
+		end;
 
 		surface.SetDrawColor(255, 255, 255, alpha);
 		surface.SetMaterial( Material(icon) );
 		surface.DrawTexturedRect(x + 5, y + 5, 16, 16);
-
-		draw.RoundedBox( 4, x + 26 + 4, y, width + 12, 26, Color(0, 0, 0, alpha * 0.78) );
-
-		surface.SetDrawColor(250, 250, 250, alpha * 0.031);
-		surface.DrawRect(x + 33, y + 3, width + 6, 20);
 
 		draw.SimpleText(text, "ps_HUDFont", x + 36, y + 13, Color(255, 255, 255, alpha), 0, 1);
 
 		local totalHeight = y;
 		local totalWidth = (width + 12) + x + 34;
 
-		if (totalWidth >= ScrW() * 0.25) then
-			totalHeight = y + 30;
+		if (totalWidth >= maxWidth) then
+			local addition = 30;
+
+			totalHeight = y + addition;
 			totalWidth = 8;
 		end;
 
@@ -302,6 +303,12 @@ function GM:HUDPaintRestrained()
 end;
 
 local deltaPosition = Vector(0, 0, 0);
+local blacklist = {
+	"weapon_physgun",
+	"weapon_physcannon",
+	"gmod_tool",
+	"pistachio_hands"
+};
 
 function GM:HUDPaint()
 	if ( IsValid( LocalPlayer() ) ) then
@@ -350,13 +357,6 @@ function GM:HUDPaint()
 			local clipText = activeWeapon:Clip1();
 
 			x, y = self:DrawUpperInfo(x, y, "icon16/gun.png", "Ammo: "..clipText, function()
-				local blacklist = {
-					"weapon_physgun",
-					"weapon_physcannon",
-					"gmod_tool",
-					"pistachio_hands"
-				};
-
 				return !table.HasValue( blacklist, string.lower( activeWeapon:GetClass() ) );
 			end);
 		end;
