@@ -23,9 +23,23 @@ if (!pistachio.chatBox) then
 	include("sh_chatbox.lua");
 end;
 
+PS_CVAR_PADDING_X = CreateClientConVar("ps_chatx", "8", true, false);
+PS_CVAR_PADDING_Y = CreateClientConVar("ps_chaty", "8", true, false);
+PS_CVAR_HEIGHT = CreateClientConVar("ps_chatheight", "0.275", true, false);
+
+cvars.AddChangeCallback("ps_chatx", function(conVar, old, current)
+	if ( IsValid(pistachio.chatBox.panel) ) then
+		pistachio.chatBox.panel:Remove();
+	end;
+end);
+
+cvars.AddChangeCallback("ps_chaty", function(conVar, old, current)
+	if ( IsValid(pistachio.chatBox.panel) ) then
+		pistachio.chatBox.panel:Remove();
+	end;
+end);
+
 pistachio.chatBox.width = 0.375;
-pistachio.chatBox.height = 0.275;
-pistachio.chatBox.padding = 10;
 pistachio.chatBox.enabled = pistachio.chatBox.enabled or false;
 pistachio.chatBox.messages = pistachio.chatBox.messages or {};
 
@@ -37,15 +51,10 @@ function pistachio.chatBox:Toggle(preventShow)
 	if ( !IsValid(self.panel) ) then
 		self.panel = vgui.Create("EditablePanel");
 		self.panel:ParentToHUD();
-		self.panel:SetSize(ScrW() * self.width, ScrH() * self.height);
-		self.panel:SetPos( self.padding, ScrH() - ( (ScrH() * self.height) + self.padding ) );
+		self.panel:SetSize( ScrW() * self.width, ScrH() * PS_CVAR_HEIGHT:GetFloat() );
+		self.panel:SetPos( PS_CVAR_PADDING_X:GetInt(), ScrH() - ( ( ScrH() * PS_CVAR_HEIGHT:GetFloat() ) + PS_CVAR_PADDING_Y:GetInt() ) );
 		self.panel:DockPadding(3, 3, 3, 3);
 		self.panel:MakePopup();
-
-		self.content = self.panel:Add("EditablePanel");
-		self.content:Dock(FILL);
-		self.content:DockPadding(3, 3, 3, 3);
-		self.content:DockMargin(0, 0, 0, 3);
 
 		self.panel.textBox = self.panel:Add("DTextEntry");
 		self.panel.textBox:Dock(BOTTOM);
@@ -111,8 +120,8 @@ function pistachio.chatBox:Paint()
 	if (IsValid(self.panel) and self.messages and #self.messages > 0) then
 		surface.SetFont("ps_ChatFont");
 
-		local w, h = self.content:GetWide(), self.content:GetTall();
-		local x, y = self.padding + 3, ScrH() * (1 - self.height) - 8;
+		local w, h = ScrW() * self.width, ScrH() * PS_CVAR_HEIGHT:GetFloat();
+		local x, y = PS_CVAR_PADDING_X:GetInt() + 3, ScrH() * ( 1 - PS_CVAR_HEIGHT:GetFloat() ) - (PS_CVAR_PADDING_Y:GetInt() + 24);
 
 		local realY = 0;
 
@@ -141,7 +150,7 @@ function pistachio.chatBox:Paint()
 				v.y = 0;
 			end;
 
-			v.y = math.Approach(v.y, realY, FrameTime() * 30);
+			v.y = math.Approach(v.y, realY, FrameTime() * 60);
 
 			v.currentText = "";
 			v.currentColor = Color(255, 255, 255);
@@ -250,8 +259,6 @@ function GM:ChatBoxBindPressed(client, bind, pressed)
 		return true;
 	end;
 end;
-
-concommand.Remove("lua_run_cl");
 
 function GM:StartChat(teamSay)
 	self.BaseClass:StartChat(teamSay);
