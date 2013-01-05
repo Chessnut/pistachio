@@ -1395,7 +1395,7 @@ net.Receive("ps_OrderItem", function(length, client)
 				local cost = itemTable.price or 0;
 				local money = client:GetPrivateVar("money") or 0;
 
-				if (money - cost < 1) then
+				if (money - cost < 0) then
 					client:Notify("You cannot afford this item!");
 
 					return;
