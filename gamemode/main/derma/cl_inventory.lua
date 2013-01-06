@@ -11,28 +11,29 @@ function PANEL:Init()
 
 	for k, v in SortedPairs( LocalPlayer():GetInventory() ) do
 		local itemTable = pistachio.item:Get(k);
-		local itemCategory = itemTable.category or "Miscellaneous";
-
-		if ( !self.categories[itemCategory] ) then
-			local category = vgui.Create("DCollapsibleCategory");
-			category:SetLabel(itemCategory);
-			category:Dock(TOP);
-			category:SetExpanded(0);
-
-			category.panel = vgui.Create("DPanel", category);
-			category.panel:Dock(FILL);
-
-			category.list = vgui.Create("DListLayout", category.panel);
-			category.list:Dock(FILL);
-			category.list:DockPadding(3, 3, 3, 7);
-
-			category:SetContents(category.list);
-
-			self.panel:AddItem(category);
-			self.categories[itemCategory] = category;
-		end;
 
 		if (itemTable) then
+			local itemCategory = itemTable.category or "Miscellaneous";
+
+			if ( !self.categories[itemCategory] ) then
+				local category = vgui.Create("DCollapsibleCategory");
+				category:SetLabel(itemCategory);
+				category:Dock(TOP);
+				category:SetExpanded(0);
+
+				category.panel = vgui.Create("DPanel", category);
+				category.panel:Dock(FILL);
+
+				category.list = vgui.Create("DListLayout", category.panel);
+				category.list:Dock(FILL);
+				category.list:DockPadding(3, 3, 3, 7);
+
+				category:SetContents(category.list);
+
+				self.panel:AddItem(category);
+				self.categories[itemCategory] = category;
+			end;
+
 			local category = self.categories[itemTable.category or "Miscellaneous"];
 
 			local item = category.list:Add("ps_InventoryItem");
