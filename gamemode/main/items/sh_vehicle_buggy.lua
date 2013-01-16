@@ -1,3 +1,12 @@
+--[[
+	Seats can be added with:
+		ITEM.seats = {
+			{offset = <vector>, rotation = <angle>, exit = <vector>}
+		}
+
+		exit is optional.
+--]]
+
 local ITEM = {};
 
 ITEM.base = "base_vehicle";
