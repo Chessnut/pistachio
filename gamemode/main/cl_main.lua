@@ -10,6 +10,9 @@ PS_CVAR_SHOWVOTE = CreateClientConVar("ps_showmyvote", "1", true, true);
 PS_CVAR_OUTLINE = CreateClientConVar("ps_hudoutline", "1", true, false);
 PS_CVAR_WRAP = CreateClientConVar("ps_hudwrap", "0.25", true, false);
 
+-- Configuration enumeration.
+PS_CONFIG_DRAW_CROSSHAIR = true;
+
 pistachio.lostFocus = pistachio.lostFocus or false;
 pistachio.lostFocusTime = pistachio.lostFocusTime or 0;
 pistachio.tips = {
@@ -361,21 +364,23 @@ function GM:HUDPaint()
 			end);
 		end;
 
-		deltaPosition = LerpVector(FrameTime() * 10, deltaPosition, LocalPlayer():GetEyeTraceNoCursor().HitPos or vector_origin + Vector());
+		if (PS_CONFIG_DRAW_CROSSHAIR) then
+			deltaPosition = LerpVector(FrameTime() * 10, deltaPosition, LocalPlayer():GetEyeTraceNoCursor().HitPos or vector_origin + Vector());
 
-		x, y = deltaPosition:ToScreen().x, deltaPosition:ToScreen().y;
-		x = x + math.cos(CurTime() * 0.75) * 6;
-		y = y + math.sin(CurTime() * 0.95) * 12;
+			x, y = deltaPosition:ToScreen().x, deltaPosition:ToScreen().y;
+			x = x + math.cos(CurTime() * 0.75) * 6;
+			y = y + math.sin(CurTime() * 0.95) * 12;
 
-		surface.SetDrawColor(0, 0, 0, 255);
-		surface.DrawRect( x - 1, y - 1, 5, 5 );
-		surface.DrawRect( x - 10, y + 12, 5, 5 );
-		surface.DrawRect( x + 8, y + 12, 5, 5 );
+			surface.SetDrawColor(0, 0, 0, 255);
+			surface.DrawRect( x - 1, y - 1, 5, 5 );
+			surface.DrawRect( x - 10, y + 12, 5, 5 );
+			surface.DrawRect( x + 8, y + 12, 5, 5 );
 
-		surface.SetDrawColor( 255, 255, 255, 255 )
-		surface.DrawRect( x, y, 3, 3 );
-		surface.DrawRect( x - 9, y + 13, 3, 3 );
-		surface.DrawRect( x + 9, y + 13, 3, 3 );
+			surface.SetDrawColor( 255, 255, 255, 255 )
+			surface.DrawRect( x, y, 3, 3 );
+			surface.DrawRect( x - 9, y + 13, 3, 3 );
+			surface.DrawRect( x + 9, y + 13, 3, 3 );
+		end;
 
 		self:HUDPaintRestrained();
 		self:HUDPaintArrest();
@@ -574,7 +579,7 @@ function GM:HUDDrawTargetID()
 	end;
 
 	for k, entity in pairs( player.GetAll() ) do
-		if ( IsValid(entity) and entity:Alive() ) then
+		if ( IsValid(entity) and entity:Alive() and entity != LocalPlayer() ) then
 			local worldPosition = entity:GetPos() + entity:OBBCenter() + Vector(0, 0, 54);
 			local position = worldPosition:ToScreen();
 			local distance = worldPosition:Distance( LocalPlayer():GetPos() );
@@ -770,12 +775,8 @@ function GM:Think()
 		nextTip = CurTime() + 10;
 	end;
 
-	local shouldKick = cvars.Bool("ps_kickafk", true);
-
-	if (shouldKick) then
-		if (pistachio.lostFocus and RealTime() - pistachio.lostFocusTime >= 300) then
-			RunConsoleCommand("melonsauce");
-		end;
+	if (pistachio.lostFocus and RealTime() - pistachio.lostFocusTime >= 300) then
+		RunConsoleCommand("melonsauce");
 	end;
 end;
 
