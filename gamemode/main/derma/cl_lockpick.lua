@@ -10,6 +10,12 @@ if (SERVER) then
 			entity.locked = false;
 			entity.picker = nil;
 			entity:Fire("unlock");
+
+			if ( entity:IsDoor() ) then
+				entity:Fire("open");
+			elseif ( entity:IsVehicle() and !IsValid( entity:GetDriver() ) ) then
+				client:EnterVehicle(entity);
+			end;
 		end;
 	end);
 
