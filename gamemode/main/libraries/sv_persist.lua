@@ -39,20 +39,24 @@ function playerMeta:PersistVar(key, varType)
 	end;
 end;
 
-function playerMeta:RestoreVar(key, varType)
-	if (PS_USE_MYSQL) then
+function playerMeta:RestoreVar(key, varType, forcePData)
+	if (PS_USE_MYSQL and !forcePData) then
 		local steamID = self:SteamID();
 
 		for k, v in pairs(pistachio.db.tables) do
 			if (k == key) then
 				pistachio.db:Query("SELECT "..v.table.." FROM players WHERE SteamID=\""..steamID.."\"", function(data)
 					if ( !data[1] ) then
+						self:RestoreVar(key, varType, true);
+
 						return;
 					end;
 
 					local value = data[1][v.table];
 
 					if (!value) then
+						self:RestoreVar(key, varType, true);
+						
 						return;
 					end;
 
