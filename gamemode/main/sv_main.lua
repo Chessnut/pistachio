@@ -6,6 +6,7 @@ AddCSLuaFile("cl_skin.lua");
 include("sh_main.lua");
 include("cl_main.lua");
 include("cl_skin.lua");
+include("sv_mysql.lua");
 
 util.AddNetworkString("ps_MenuPanel");
 util.AddNetworkString("ps_Progress");
@@ -405,6 +406,20 @@ function GM:EntityTakeDamage(entity, damageInfo)
 end;
 
 function GM:PlayerInitialSpawn(client)
+	if (PS_USE_MYSQL) then
+		local steamID = client:SteamID();
+
+		pistachio.db:Query("SELECT * FROM players WHERE SteamID=\""..steamID.."\"", function(data)
+			if (!data or table.Count(data) == 0) then
+				print( "[Pistachio] Creating new data for "..client:Name() );
+
+				pistachio.db:Query("INSERT INTO players (SteamID, Karma, Money, Bank, Title, Particle, Color, Hat, Model) VALUES (\""..steamID.."\", 0, 0, 0, \"\", \"\", \"\", \"\", \"\")", function(data)
+					print( "[Pistachio] Created data for "..client:Name() );
+				end);
+			end;
+		end);
+	end;
+
 	pistachio.chatBox:Message("Player "..client:Name().." has connected to the server.");
 end;
 
@@ -501,8 +516,9 @@ function GM:KarmaTick(client)
 
 	if ( (client.nextKarma or 0) < CurTime() ) then
 		local karma = client:GetPrivateVar("karma") or 0;
+		local value = math.Clamp(karma + 1, -100, 100);
 
-		client:SetPrivateVar("karma", karma + 1);
+		client:SetPrivateVar("karma", value);
 		client.nextKarma = CurTime() + 720;
 	end;
 end;
@@ -1428,7 +1444,7 @@ net.Receive("ps_SelectShirtColor", function(length, client)
 		client:SetPrivateVar("color", red..","..green..","..blue);
 
 		if (client:Team() == TEAM_CITIZEN) then
-			client:SetColor( Color(red, green, blue, 255) );
+			client:SetPlayerColor( Color(red, green, blue, 255) );
 			client:Notify("You've changed the color of your shirt.");
 		else
 			client:Notify("Your shirt color will change when you're a citizen again.");

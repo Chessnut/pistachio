@@ -16,11 +16,64 @@ function playerMeta:PersistVar(key, varType)
 	if (data) then
 		local dataType = string.lower( type(data) );
 
+		if (PS_USE_MYSQL) then
+			local steamID = self:SteamID();
+
+			for k, v in pairs(pistachio.db.tables) do
+				if (k == key) then
+					local value = data;
+					data = pistachio.db.obj:escape( tostring(data) );
+
+					if (v.data == "string") then
+						data = "\""..data.."\"";
+					end;
+
+					pistachio.db:Query("UPDATE players SET "..v.table.."="..data.." WHERE SteamID=\""..steamID.."\"");
+
+					return;
+				end;
+			end;
+		end;
+
 		self:SetPData( "ps_persist_"..key, dataType..":"..tostring(data) );
 	end;
 end;
 
 function playerMeta:RestoreVar(key, varType)
+	if (PS_USE_MYSQL) then
+		local steamID = self:SteamID();
+
+		for k, v in pairs(pistachio.db.tables) do
+			if (k == key) then
+				pistachio.db:Query("SELECT "..v.table.." FROM players WHERE SteamID=\""..steamID.."\"", function(data)
+					if ( !data[1] ) then
+						return;
+					end;
+
+					local value = data[1][v.table];
+
+					if (!value) then
+						return;
+					end;
+
+					if ( _G["to"..v.data] ) then
+						value = _G["to"..v.data](value);
+					end;
+
+					if (value) then
+						if (varType == NET_PRIVATE) then
+							self:SetPrivateVar(key, value);
+						else
+							self:SetPublicVar(key, value);
+						end;
+					end;
+				end);
+
+				return;
+			end;
+		end;
+	end;
+
 	local data = self:GetPData("ps_persist_"..key);
 
 	if (data) then
@@ -33,10 +86,12 @@ function playerMeta:RestoreVar(key, varType)
 				value = _G["to"..dataType](value);
 			end;
 			
-			if (varType == NET_PRIVATE) then
-				self:SetPrivateVar(key, value);
-			else
-				self:SetPublicVar(key, value);
+			if (value) then
+				if (varType == NET_PRIVATE) then
+					self:SetPrivateVar(key, value);
+				else
+					self:SetPublicVar(key, value);
+				end;
 			end;
 		end;
 	end;
