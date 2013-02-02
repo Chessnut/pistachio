@@ -6,7 +6,7 @@
 	Thanks to Drakehawke.
 --]]
 
-PS_USE_MYSQL = true; -- True/false to set whether MySQL is used.
+PS_USE_MYSQL = false; -- True/false to set whether MySQL is used. Default false to use SQLite.
 
 local MYSQL_HOSTNAME = "localhost";		-- The host of your database.
 local MYSQL_USERNAME = "root";			-- Which user it will be logged in with.
