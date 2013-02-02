@@ -1,4 +1,4 @@
-GM.Version = "Alpha 1.7.5.6";
+GM.Version = "Alpha 1.7.5.7";
 
 MsgN("\n\n\tPistachio "..GM.Version.." loading.\n");
 

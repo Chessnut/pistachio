@@ -4,9 +4,12 @@
 	found at: http://facepunch.com/showthread.php?t=1220537
 
 	Thanks to Drakehawke.
+
+	IMPORTANT! Make sure that you execute the .sql file included in gamemodes/pistachio
+	Otherwise your gamemode will not use MySQL correctly.
 --]]
 
-PS_USE_MYSQL = false; -- True/false to set whether MySQL is used. Default false to use SQLite.
+PS_USE_MYSQL = false; -- True/false to set whether MySQL is used.
 
 local MYSQL_HOSTNAME = "localhost";		-- The host of your database.
 local MYSQL_USERNAME = "root";			-- Which user it will be logged in with.
