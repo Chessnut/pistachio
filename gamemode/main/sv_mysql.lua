@@ -61,6 +61,12 @@ function pistachio.db:Connect()
 
 	if (database) then
 		database:connect();
+
+		timer.Create("ps_SQLHeartBeat", 30, 0, function()
+			if (PS_USE_MYSQL) then
+				pistachio.db:Query("SELECT 1 + 1");
+			end;
+		end);
 	end;
 end;
 
