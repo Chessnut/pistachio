@@ -312,9 +312,9 @@ pistachio.command:Create("takeownership", "<name>", "Disallow a player ownership
 	end;
 end);
 
-pistachio.command:Create("warrant", "<name> <reason>", "Allow a player ownership if the thing you're looking at.", function(client, arguments)
-	if (client:Team() != TEAM_MAYOR) then
-		client:Notify("You need to be a mayor to warrant!");
+pistachio.command:Create("warrent", "<name> <reason>", "Allow a player ownership if the thing you're looking at.", function(client, arguments)
+	if (client:Team() != TEAM_MAYOR) and (client:Team() != TEAM_PCHIEF) then
+		client:Notify("You need to be a mayor or police chief to warrant!");
 
 		return;
 	end;
@@ -324,7 +324,7 @@ pistachio.command:Create("warrant", "<name> <reason>", "Allow a player ownership
 
 	if ( (client.nextWarrant or 0) < CurTime() ) then
 		if ( type(target) != "table" and IsValid(target) ) then
-			if (target:Team() != TEAM_CITIZEN) then
+			if (target:Team() == TEAM_POLICE) or (target:Team() == TEAM_MAYOR) then
 				client:Notify("You can only warrant citizens.");
 
 				return;
@@ -361,10 +361,66 @@ pistachio.command:Create("warrant", "<name> <reason>", "Allow a player ownership
 			client:Notify("A player couldn't be found!");
 		end;
 
-		client.nextWarrant = CurTime() + 120;
+		client.nextWarrant = CurTime() + 60;
 	else
 		client:Notify("You cannot issue another warrant yet!");
 	end;
+end);
+
+pistachio.command:Create("awardmoney", "<name> <amount>", "Give money to a person if needed to be refunded or if they have donated. <Super Admin only>", function(client, arguments)
+if client:IsSuperAdmin() then
+local name = tostring( arguments[1] );
+local target = pistachio:GetPlayerByName(name);
+
+if not target then
+client:Notify("That's not a valid player!")
+return
+end
+
+local amount = tonumber(arguments[2])
+if not amount or not arguments[2] then
+client:Notify("You need to enter a valid amount!")
+return
+end
+local person = target:Nick()
+if target == client then
+person = "yourself"
+end
+target:ChatPrint("You awarded "..person.." with $"..amount..".")
+target:AddMoney(amount);
+target:ChatPrint("You have been awarded with $"..amount.." by "..client:Nick()..".")
+else
+
+client:Notify("You need to be a super admin!")
+end
+end);
+
+pistachio.command:Create("awardkarma", "<name> <amount>", "Give money to a person if needed to be refunded or if they have donated. <Super Admin only>", function(client, arguments)
+if client:IsSuperAdmin() then
+local name = tostring( arguments[1] );
+local target = pistachio:GetPlayerByName(name);
+
+if not target then
+client:Notify("That's not a valid player!")
+return
+end
+
+local amount = tonumber(arguments[2])
+if not amount or not arguments[2] then
+client:Notify("You need to enter a valid amount!")
+return
+end
+local person = target:Nick()
+if target == client then
+person = "yourself"
+end
+target:ChatPrint("You awarded "..person.." with K"..amount..".")
+target:SetPrivateVar("karma", amount);
+target:ChatPrint("You have been awarded with K"..amount.." by "..client:Nick()..".")
+else
+
+client:Notify("You need to be a super admin!")
+end
 end);
 
 
