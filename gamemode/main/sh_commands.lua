@@ -101,6 +101,62 @@ pistachio.command:Create("changemodel", nil, "Opens a menu that allows you to ch
 	net.Send(client);
 end);
 
+pistachio.command:Create("awardmoney", "<name> <amount>", "Give money to a person if needed to be refunded or if they have donated. <Super Admin only>", function(client, arguments)
+if client:IsSuperAdmin() then
+local name = tostring( arguments[1] );
+local target = pistachio:GetPlayerByName(name);
+
+if not target then
+client:Notify("That's not a valid player!")
+return
+end
+
+local amount = tonumber(arguments[2])
+if not amount or not arguments[2] then
+client:Notify("You need to enter a valid amount!")
+return
+end
+local person = target:Nick()
+if target == client then
+person = "yourself"
+end
+target:ChatPrint("You awarded "..person.." with $"..amount..".")
+target:AddMoney(amount);
+target:ChatPrint("You have been awarded with $"..amount.." by "..client:Nick()..".")
+else
+
+client:Notify("You need to be a super admin!")
+end
+end);
+
+pistachio.command:Create("awardkarma", "<name> <amount>", "Give karma to a person if needed to be refunded or if they have donated. <Super Admin only>", function(client, arguments)
+if client:IsSuperAdmin() then
+local name = tostring( arguments[1] );
+local target = pistachio:GetPlayerByName(name);
+
+if not target then
+client:Notify("That's not a valid player!")
+return
+end
+
+local amount = tonumber(arguments[2])
+if not amount or not arguments[2] then
+client:Notify("You need to enter a valid amount!")
+return
+end
+local person = target:Nick()
+if target == client then
+person = "yourself"
+end
+target:ChatPrint("You awarded "..person.." with "..amount.." Karma.")
+target:AddMoney(amount);
+target:ChatPrint("You have been awarded with "..amount.." karma by "..client:Nick()..".")
+else
+
+client:Notify("You need to be a super admin!")
+end
+end);
+
 pistachio.command:Create("resign", nil, "Resign your job if you aren't a civilian.", function(client, arguments)
 	if (client:Team() != TEAM_CITIZEN) then
 		client:SetTeam(TEAM_CITIZEN);
