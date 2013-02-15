@@ -96,6 +96,62 @@ pistachio.command:Create("givemoney", "<amount>", "Gives money to the player you
 	end;
 end);
 
+pistachio.command:Create("awardmoney", "<name> <amount>", "Give money to a person if needed to be refunded or if they have donated. <Super Admin only>", function(client, arguments)
+if client:IsSuperAdmin() then
+local name = tostring( arguments[1] );
+local target = pistachio:GetPlayerByName(name);
+
+if not target then
+client:Notify("That's not a valid player!")
+return
+end
+
+local amount = tonumber(arguments[2])
+if not amount or not arguments[2] then
+client:Notify("You need to enter a valid amount!")
+return
+end
+local person = target:Nick()
+if target == client then
+person = "yourself"
+end
+target:ChatPrint("You awarded "..person.." with $"..amount..".")
+target:AddMoney(amount);
+target:ChatPrint("You have been awarded with $"..amount.." by "..client:Nick()..".")
+else
+
+client:Notify("You need to be a super admin!")
+end
+end);
+
+pistachio.command:Create("setkarma", "<name> <amount>", "Set another players karma. <Super Admin only>", function(client, arguments)
+if client:IsSuperAdmin() then
+local name = tostring( arguments[1] );
+local target = pistachio:GetPlayerByName(name);
+
+if not target then
+client:Notify("That's not a valid player!")
+return
+end
+
+local amount = tonumber(arguments[2])
+if not amount or not arguments[2] then
+client:Notify("You need to enter a valid amount!")
+return
+end
+local person = target:Nick()
+if target == client then
+person = "yourself"
+end
+target:ChatPrint("You set "..person.."'s karma to "..amount..".")
+target:SetPrivateVar("karma", amount);
+target:ChatPrint("Your karma has been set to "..amount.."  by "..client:Nick()..".")
+else
+
+client:Notify("You need to be a super admin!")
+end
+end);
+
 pistachio.command:Create("changemodel", nil, "Opens a menu that allows you to change your model.", function(client, arguments)
 	net.Start("ps_ChangeModel");
 	net.Send(client);
