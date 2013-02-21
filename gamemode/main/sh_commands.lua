@@ -313,7 +313,7 @@ pistachio.command:Create("takeownership", "<name>", "Disallow a player ownership
 end);
 
 pistachio.command:Create("warrent", "<name> <reason>", "Allow a player ownership if the thing you're looking at.", function(client, arguments)
-	if (client:Team() != TEAM_MAYOR) and (client:Team() != TEAM_PCHIEF) then
+	if (client:Team() != TEAM_MAYOR) then
 		client:Notify("You need to be a mayor or police chief to warrant!");
 
 		return;
@@ -324,7 +324,7 @@ pistachio.command:Create("warrent", "<name> <reason>", "Allow a player ownership
 
 	if ( (client.nextWarrant or 0) < CurTime() ) then
 		if ( type(target) != "table" and IsValid(target) ) then
-			if (target:Team() == TEAM_POLICE) or (target:Team() == TEAM_MAYOR) then
+			if (target:Team() != TEAM_CITIZEN) then
 				client:Notify("You can only warrant citizens.");
 
 				return;
