@@ -69,7 +69,7 @@ function SWEP:PrimaryAttack()
 				self:EmitSound("weapons/crossbow/hitbod2.wav");
 			end;
 		elseif (trace.HitWorld and distance <= 72) then
-			self.owner:EmitSound("weapons/crossbow/hitbod2.wav");
+			self.Owner:EmitSound("weapons/crossbow/hitbod2.wav");
 		end;
 
 		self.Owner:EmitSound("npc/vort/claw_swing2.wav");
