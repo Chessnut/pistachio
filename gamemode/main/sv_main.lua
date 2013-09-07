@@ -121,12 +121,6 @@ function GM:PlayerLoadData(client)
 			net.WriteString(v);
 		net.Send(client);
 	end;
-
-	local files = file.Find("*", "cstrike");
-
-	if (#files == 0) then
-		client:ChatPrint("Server is missing Counter-Strike content!");
-	end;
 end;
 
 function GM:PlayerSaveData(client, final, stopMessage)
