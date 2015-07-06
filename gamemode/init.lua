@@ -15,13 +15,19 @@ function GM:IncludeDir(directory)
     	local path = self.FolderName.."/gamemode/"..directory.."/"..v;
 
     	if (string.sub(v, 1, 3) == "sh_") then
-    		AddCSLuaFile(path);
+    	    if (SERVER) then
+    		    AddCSLuaFile(path);
+    		end;
+    		
     		include(path)
-    	elseif (string.sub(v, 1, 3) == "sv_") then
+    	elseif (string.sub(v, 1, 3) == "sv_" and SERVER) then
     		include(path);
     	elseif (string.sub(v, 1, 3) == "cl_") then
-    		AddCSLuaFile(path);
-            include(path); -- Allows for editting.
+    	    if (SERVER) then
+    		    AddCSLuaFile(path);
+    		else
+                include(path); -- Allows for editting.
+            end;
     	end;
     end;
 end;
